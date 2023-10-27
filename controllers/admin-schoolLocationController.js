@@ -39,19 +39,15 @@ const createLocation = async (req, res) => {
 // @access public
 // @route GET /api/contacts
 const getLocation = async (req, res) => {
-    const { id } = req.params;
-  
-    if (!ObjectId.isValid(id)) {
-      res.status(400).json({ error: 'Invalid location ID' });
-      return;
-    }
+    const { name } = req.params;
+
    try{ 
     const db = getDb(); // Get the MongoDB database instance
-    const location = await db.collection('locations').findOne({ _id:new ObjectId(id) });
+    const location = await db.collection('locations').findOne({name: name });
     if (location) {
       res.json(location);
     } else {
-      res.status(404).json({ message: 'Booking not found' });
+      res.status(404).json({ message: 'Location not found' });
     }
   
   } catch (error) {

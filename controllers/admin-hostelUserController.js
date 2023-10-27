@@ -56,7 +56,7 @@ const loginAdmin = async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "20m" }
     );
-    res.status(200).json({ accessToken });
+    res.status(200).json({ accessToken, success: true });
 
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -71,9 +71,9 @@ const loginAdmin = async (req, res) => {
 // @route /api/users/register
 const registerAdmin =  async (req, res) => {
 
-    const { email, password } = req.body;
+    const { email, password, firstname, lastname, hostelname } = req.body;
     const db = getDb();
-    if (!email || !password) {
+    if (!email || !password||!firstname|| !lastname ||!hostelname) {
       res.status(400).json({ error: 'All fields are mandatory' });
       return;
     }
@@ -92,6 +92,9 @@ const registerAdmin =  async (req, res) => {
     const newUser = {
       email,
       password: hashedPassword,
+      firstname,
+      lastname,
+      hostelname
     };
   
     try {

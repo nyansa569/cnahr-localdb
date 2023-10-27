@@ -19,15 +19,15 @@ const getRooms = async (req, res) => {
 // @access public
 // @route POST /api/hostel-admin/
 const createRoom = async (req, res) => {
-  const { hostelName, roomName, price, roomDesc } = req.body;
-  if (!hostelName|| !roomName|| !price|| !roomDesc) {
+  const { hostelName, roomName, price, roomDesc, imageurl } = req.body;
+  if (!hostelName|| !roomName|| !price|| !roomDesc||!imageurl) {
     res.status(400).json({ error: 'All fields are mandatory' });
     return;
   }
 
  try{ 
   const db = getDb(); // Get the MongoDB database instance
-  const result = await db.collection('rooms').insertOne({  hostelName, roomName, price, roomDesc  });
+  const result = await db.collection('rooms').insertOne({  hostelName, roomName, price, roomDesc ,imageurl });
   res.json(result);
 }catch (error) {
     res.status(500).json({ error: error.message });

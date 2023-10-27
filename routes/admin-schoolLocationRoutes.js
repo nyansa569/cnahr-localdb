@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 router.route('/').get(getLocations)
-router.route('/:id').get(getLocation);
+router.route('/:name').get(getLocation);
 router.route('/').post(createLocation);
 router.route('/:id').delete(deleteLocation);
 router.route('/:id').put(updateLocation);
